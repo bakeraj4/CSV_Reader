@@ -1,0 +1,48 @@
+This is to help describe the file format.
+
+Program: SZRGRDT.SQR
+Office of the Registrar
+
+	//The first two lines
+
+Oxford Campus
+
+	//the campus
+
+Miami Plan
+	
+	//ignore
+
+CSE Computer Science
+
+	//header in the csv file- tells which dept on
+
+.
+.
+.
+.
+.	
+CSE 998 A Last, First M. Course Title
+A+ .......
+#'s
+%
+CSE 999 A Last, First ourse
+A+ .......
+#'s
+%
+Course Total CSE 999
+.
+.
+.
+.
+.
+Computer Science total
+ECE
+.
+.
+.
+.
+.
+
+	//ignore Course total
+	//ignore Dept total
