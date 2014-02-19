@@ -1,0 +1,87 @@
+AAA Asian/Asian American Studies
+ACC Accountancy
+ACE American Culture & English Prg
+AER Aeronautics   18 AES Aerospace Studies
+AMS American Studies
+ARB Arabic
+ARC Architecture & Interior Design
+ART Art
+ATH Anthropology
+BIO Biology
+BIS Integrative Studies
+BLS Business Legal Studies
+BTE Business Technology
+BUS Business Analysis
+BWS Black World Studies
+CHI Chinese
+CHM Chemistry & Biochemistry
+CIT Comp Information Technology
+CJS Criminal Justice Studies
+CLS Classics
+CMS Comparative Media Studies
+COM Communication
+CPE Chemical & Paper Engineering
+CSE Comp Sci &Software Engineering
+DST Disability Studies
+EAS Engineering & App Science
+ECE Electrical & Computer Engineer
+ECO Economics
+EDL Educational Leadership
+EDP Educational Psychology
+EDT Teacher Education
+EGM Engineering Management
+EHS Education, Health And Society
+ENG English
+ENT Engineering Technology
+ESP Entrepreneurship
+FIN Finance
+FRE French
+FST Film Studies
+FSW Family Studies And Social Work  
+GEO Geography
+GER German
+GHS Global Health Studies
+GLG Geology
+GSC Graduate School Community
+GTY Gerontology
+HBW Hebrew
+HON Honors
+HST History
+IDS Interdisciplinary
+IES Environmental Sciences
+IMS Interactive Media Studies
+ISA Information Systems& Analytics
+ITL Italian
+ITS International Studies
+JPN Japanese
+JRN Journalism
+KNH Kinesiology And Health
+KOR Korean
+LAS Latin American Studies
+LAT Latin Language & Literature
+MBI Microbiology
+MGT Management
+MKT Marketing
+MME Manufact & Mechan Engineering  
+MTH Mathematics
+MUS Music
+NSC Naval Science
+NSG Nursing
+PHL Philosophy
+PHY Physics
+PLW Pre-Law Studies
+PMD Premedical Studies
+POL Political Science
+POR Portuguese
+PSY Psychology
+REL Religion, Comparative
+RUS Russian
+SCA School Of Creative Arts
+SJS Social Justice Studies
+SOC Sociology
+SPA Speech Pathology & Audiology
+SPN Spanish
+STA Statistics
+THE Theatre
+WGS Women,Gender&Sexuality Studies
+WST Western Program
