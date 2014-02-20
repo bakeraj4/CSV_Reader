@@ -1,7 +1,8 @@
 AAA Asian/Asian American Studies
 ACC Accountancy
 ACE American Culture & English Prg
-AER Aeronautics   18 AES Aerospace Studies
+AER Aeronautics
+AES Aerospace Studies
 AMS American Studies
 ARB Arabic
 ARC Architecture & Interior Design

@@ -39,22 +39,31 @@ public class CSV_READER extends Thread{
 					}
 				}
 				else{
-					if((" "+str).contains(myLib.getArr()[1][deptIndex]+" Total")){
-						
+					//System.out.println(str);
+					if((" "+str).contains(myLib.getArr()[1][deptIndex])){
 						//skip this non-useful line and skips the next three lines
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 						deptIndex++;
 					}
 					else if(str.contains("Course Total")){
 						//skip this non-useful line and skips the next three lines
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 						str=reader.readLine();
+						System.out.println(str);
 					}
 					else if(str.contains("Miami Plan")){
 						//skip the non-useful line
+						System.out.println(str);
 					}
 					else{
 						if(courseLine==0){
@@ -122,13 +131,14 @@ public class CSV_READER extends Thread{
 							courseLine=0;
 							tmpCourse.calulateGPA();
 							myLib.addCourse(tmpCourse);
+							System.out.println("line at "+linesRead);
 						}
 					}
-				}				
+				}	
 				linesRead++;
 			}
 		}catch(Exception e){
-			System.out.println("at line "+linesRead+"\n"+str);
+			System.out.println(str);
 		}
 		
 		System.out.println();
