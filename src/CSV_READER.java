@@ -26,8 +26,7 @@ public class CSV_READER extends Thread{
 	
 	public void readData(){
 		try{
-			Course tmpCourse = null;	
-			boolean first=true;
+			Course tmpCourse = null;
 			int linesRead=0;
 			int deptIndex=0;
 			int courseLine=0;
@@ -48,6 +47,44 @@ public class CSV_READER extends Thread{
 					if(courseLine==0){
 						tmpCourse=new Course();
 						//add the : AAA 201   A  Mannur Anita     Intro to Asian/ Asian Amer,Y,N,,,,,,,,,,,,,,,,,,,,
+						//dept # section Name Course title
+						int dataIndex=0;//0 to 5 to represent the attribute curently parsing no correlation to i b/c some take multiple indexes
+						String[] theLine=str.split(new String("\\s+"));
+						String profName="",courseName="";
+						for(int i =0;i<theLine.length;i++){
+							//System.out.println(theLine[i]);
+							if(dataIndex==0){
+								tmpCourse.setAbbriavtion(theLine[i]);
+								dataIndex++;
+							}
+							else if(dataIndex==1){
+								tmpCourse.setCourseNum(theLine[i]);
+								dataIndex++;
+							}
+							else if(dataIndex==2){
+								tmpCourse.setSection(theLine[i]);
+								dataIndex++;
+							}
+							else if(dataIndex==3){
+								profName+=theLine[i];
+								i++;
+								profName+=", "+theLine[i];
+								i++;
+								dataIndex++;
+								tmpCourse.setInstructor(profName);
+							}
+							else if(dataIndex==4){
+								courseName+=theLine[i];
+								i++;
+								if(!theLine[i].equals("N")){
+									courseName+=" "+theLine[i];
+									i++;
+								}
+								dataIndex++;
+								tmpCourse.setCourseTitle(courseName);
+							}
+							
+						}
 						courseLine++;
 					}
 					else if(courseLine==1){
@@ -56,6 +93,12 @@ public class CSV_READER extends Thread{
 					}
 					else if(courseLine==2){
 						//add this  ",0,12,8,3,4,7,0,3,0,2,1,0,2,0,0,0,0,0,0,0,0,3.05"
+						String[] line=str.split(",");
+						for(int i=0;i<21;i++){
+							if(!line[i].equals(" ")){
+								tmpCourse.setGrade(i-1, Integer.parseInt(line[i]));
+							}
+						}
 						courseLine++;
 					}
 					else if(courseLine==3){
