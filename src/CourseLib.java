@@ -26,6 +26,10 @@ public class CourseLib {
 		courses.add(course);
 	}
 	
+	/*public ArrayList<Course> getCourses(){
+		return courses;
+	}*/
+	
 	public String toString(){
 		String ret="";
 		for(Course course: courses)
