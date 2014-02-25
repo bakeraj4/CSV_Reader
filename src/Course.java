@@ -4,16 +4,14 @@ public class Course {
 	private double gpa= -1.0;
 	private int[]gradeOccurance=new int[21];// 13= (a -d w/ +-) 3=W, WP, WF 5=I, X, Y, P, S
 	private double[]gradeDist =new double[21];
-	
-	//TODO
-	//String sem="";//fl13,wn14,sp14,su14,....
+	private String sem="";
 	Course(){
 		//default constructor
 	}
 
 	public String toString(){
 		//will change later for more details
-		return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa.";
+		return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa, during the "+sem+".";
 	}
 	
 	public String getAbbriavtion() {
@@ -89,5 +87,13 @@ public class Course {
 			numPeople+=gradeOccurance[i];
 		}
 		gpa=(numPoints/numPeople);
+	}
+
+	public String getSem() {
+		return sem;
+	}
+
+	public void setSem(String sem) {
+		this.sem = sem;
 	}
 }

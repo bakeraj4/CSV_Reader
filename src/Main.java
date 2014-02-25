@@ -12,7 +12,7 @@ public class Main {
 					"data/201310 szrgrdt.csv",
 					"data/201230 szrgrdt.csv",
 					"data/201220 szrgrdt.csv",
-					"data/201210 szrgrdt.csv"};//more needs to be added
+					"data/201210 szrgrdt.csv"};//more needs to be added, 200810 to 201410
 		
 		try {
 			CSV_READER[] files=new CSV_READER[names.length];
