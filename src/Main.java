@@ -15,13 +15,17 @@ public class Main {
 					"data/201210 szrgrdt.csv"};//more needs to be added
 		
 		try {
-				CSV_READER file=new CSV_READER(names[0]);
-				file.start();
-				System.out.print(file.getNumCourse());
-				file.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			CSV_READER[] files=new CSV_READER[names.length];
+			for(int i=0;i<names.length;i++){
+				files[i]=new CSV_READER(names[i]);
+				files[i].start();
 			}
+			for(int i=0;i<names.length;i++){
+				System.out.println(files[i].getNumCourse());
+				files[i].join();
+			}
+		} catch (InterruptedException e) {
+				e.printStackTrace();
 		}
-	
+	}
 }

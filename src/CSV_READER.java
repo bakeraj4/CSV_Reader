@@ -94,7 +94,7 @@ public class CSV_READER extends Thread{
 		} catch (IOException e){
 			e.printStackTrace();
 		}
-		System.out.println(myLib.toString());
+		//System.out.println(myLib.toString());
 	}
 
 	public int getNumCourse() {
