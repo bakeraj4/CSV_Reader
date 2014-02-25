@@ -15,9 +15,9 @@ public class CourseLib {
 		courses.add(course);
 	}
 	
-	/*public ArrayList<Course> getCourses(){
+	public ArrayList<Course> getCourses(){
 		return courses;
-	}*/
+	}
 	
 	public String toString(){
 		String ret="";
