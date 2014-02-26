@@ -6,11 +6,9 @@ public class Course {
 	private double[]gradeDist =new double[21];
 	private String sem="";
 	Course(){
-		//default constructor
 	}
 
 	public String toString(){
-		//will change later for more details
 		return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa, during the "+sem+".";
 	}
 	
