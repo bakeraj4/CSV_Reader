@@ -9,7 +9,12 @@ public class Course {
 	}
 
 	public String toString(){
-		return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa, during the "+sem+".";
+		//return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa, during the "+sem+".";
+		String tmp= this.abbriavtion+","+this.courseNum+","+this.section+","+this.instructor+","+this.sem+","+this.gpa;
+		for(int i=0;i<13;i++){
+			tmp+=(","+this.gradeOccurance[i]+","+this.gradeDist[i]);
+		}
+		return tmp;
 	}
 	
 	public String getAbbriavtion() {

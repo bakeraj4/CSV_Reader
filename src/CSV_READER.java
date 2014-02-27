@@ -42,13 +42,13 @@ public class CSV_READER extends Thread{
 				sem_match=sem_pattern.matcher(str);
 				if(sem_match.find()){
 					sem=sem_match.group();
-					if(i%2==1){//This makes things consistent. The registar changes between them
-						sem=regexs[i-1];
+					if(i%2==0){//This makes things consistent. The registar changes between them
+						sem=regexs[i+1];
 					}
 					int index =str.indexOf(sem)+sem.length()+2;
 					String remainder=str.substring(index);
 					index=remainder.indexOf("\"");
-					sem+=(" "+remainder.substring(0,index));
+					sem+=(" "+this.fileName.substring(5,9));
 					found=true;
 				}
 			}
