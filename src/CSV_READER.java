@@ -13,11 +13,12 @@ public class CSV_READER extends Thread{
 	private CourseLib myLib=new CourseLib();
 	//The follwing array of regex's don't take J-Term into consideration because we weren't given the csvfor it
 	private String[] regexs={"First Semester","Fall Semester","Second Semester","Spring Semester","Summer Session", "Summer Term"};
-	private String dbName="";
+	private DB_CONN myCONN;
 	
-	CSV_READER(String fName,String db){
-		fileName=fName;		
-		dbName=db;
+	
+	CSV_READER(String fName){
+		fileName=fName;	
+		myCONN=new DB_CONN();
 	}
 	
 	public void start(){
@@ -122,6 +123,7 @@ public class CSV_READER extends Thread{
 			e.printStackTrace();
 		}
 		//System.out.println(myLib.toString());
+		addTodb();
 	}
 
 	public int getNumCourse() {
@@ -133,13 +135,9 @@ public class CSV_READER extends Thread{
 		return fileName+"\n"+myLib.toString();
 	}
 	
-	public void addTodb(){//will have to have a critical section to add
-		//can't continue till the schema is done
-			//aaron- thinks that every course should be a touple s.t. each param is a col.
-			//Trying to get a better NF is not needed b/c the repitions would be the same
-			//if there was another table (ie profs, take the name out to own table, but will
-			//still need some sort of id and to track it. so no space saving there). Same for grade
-			//occurances and %'s. adding a id for them in the course table will not be helpful
-			//wasting time on the join and there is no data space savings.
+	public void addTodb(){
+		for(Course c: myLib.getCourses()){
+			myCONN.insertIntoTabe(c);
+		}
 	}
 }

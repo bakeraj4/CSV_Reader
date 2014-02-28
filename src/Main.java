@@ -9,7 +9,6 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String dbFile="courseDB.db";
 		String[] names={"data/201410 szrgrdt.csv",
 					"data/201330 szrgrdt.csv",
 					"data/201320 szrgrdt.csv",
@@ -32,13 +31,12 @@ public class Main {
 		//200810 to 201410
 		
 		try {
-			DB_CONN a=new DB_CONN();
-			a.init();
+			DB_CONN.init();
 			
 			
 			CSV_READER[] files=new CSV_READER[names.length];
 			for(int i=0;i<names.length;i++){
-				files[i]=new CSV_READER(names[i],dbFile);
+				files[i]=new CSV_READER(names[i]);
 				files[i].start();
 			}
 			//has a txt version for now
@@ -48,9 +46,6 @@ public class Main {
 				System.out.println(files[i].getNumCourse());
 				files[i].join();
 				out.write(files[i].getLibStr());
-				//for each cousrse in the lib
-					//add the course data
-					//add prof data (only add the name once)
 			}
 			out.close();
 		} catch (InterruptedException e) {
