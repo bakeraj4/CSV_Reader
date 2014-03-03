@@ -23,6 +23,7 @@ CMS Comparative Media Studies
 COM Communication
 CPE Chemical & Paper Engineering
 CSE Comp Sci &Software Engineering
+CSA Comp Sci &Software Engineering
 DST Disability Studies
 EAS Engineering & App Science
 ECE Electrical & Computer Engineer

@@ -123,7 +123,8 @@ public class CSV_READER extends Thread{
 			e.printStackTrace();
 		}
 		//System.out.println(myLib.toString());
-		addTodb();
+		
+		//addTodb();
 	}
 
 	public int getNumCourse() {
