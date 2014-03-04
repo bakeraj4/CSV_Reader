@@ -14,6 +14,7 @@ public class CSV_READER extends Thread{
 	//The follwing array of regex's don't take J-Term into consideration because we weren't given the csvfor it
 	private String[] regexs={"First Semester","Fall Semester","Second Semester","Spring Semester","Summer Session", "Summer Term"};
 	private DB_CONN myCONN;
+	private static Object lock =new Object();
 	
 	
 	CSV_READER(String fName){
@@ -115,7 +116,9 @@ public class CSV_READER extends Thread{
 					}
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
-					myCONN.insertIntoTabe(tmp);
+					synchronized(lock){
+						myCONN.insertIntoTabe(tmp);
+					}
 				}
 			}
 		} catch (FileNotFoundException e) {

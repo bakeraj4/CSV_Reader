@@ -141,36 +141,34 @@ public class DB_CONN {
 	public void insertIntoTabe(Course c){
 		//TODO give a lock to the conn.activitylock before insert		
 		try {
-			synchronized (conn_S) {
-				//adds to the course table
-				courseInsert.setString(1, c.getCourseTitle());
-				courseInsert.setString(2, abrMap.get(c.getAbbriavtion()));
-				courseInsert.setString(3, c.getSection());
-				courseInsert.setString(4, c.getInstructor());
-				courseInsert.setString(5, c.getSem());
-				courseInsert.setString(6, c.getCourseNum());
-				courseInsert.execute();
-				
-				
-				//is prof in it already
-				/*facultyIsIn.setString(1, c.getInstructor());
-				ResultSet res=facultyIsIn.executeQuery();
-				//insert prof
-				if(!res.next()){//next givs false if the result set is empty
-					facultyInsert.setString(1, c.getInstructor());
-					facultyInsert.execute();
-				}*/
-				
-				//is dept prof combo in it
-				/*hasDeptIsIn.setString(1, abrMap.get(c.getAbbriavtion()));
-				hasDeptIsIn.setString(2, c.getInstructor());
-				res=hasDeptIsIn.executeQuery();
-				//insert combo
-				if(!res.next()){
-					hasDeptInsert.setString(1, abrMap.get(c.getAbbriavtion()));
-					hasDeptInsert.setString(2, c.getInstructor());
-					hasDeptInsert.execute();
-				}*/
+			//adds to the course table
+			courseInsert.setString(1, c.getCourseTitle());
+			courseInsert.setString(2, abrMap.get(c.getAbbriavtion()));
+			courseInsert.setString(3, c.getSection());
+			courseInsert.setString(4, c.getInstructor());
+			courseInsert.setString(5, c.getSem());
+			courseInsert.setString(6, c.getCourseNum());
+			courseInsert.execute();
+			
+			
+			//is prof in it already
+			/*facultyIsIn.setString(1, c.getInstructor());
+			ResultSet res=facultyIsIn.executeQuery();
+			//insert prof
+			if(!res.next()){//next givs false if the result set is empty
+				facultyInsert.setString(1, c.getInstructor());
+				facultyInsert.execute();
+			}*/
+			
+			//is dept prof combo in it
+			hasDeptIsIn.setString(1, abrMap.get(c.getAbbriavtion()));
+			hasDeptIsIn.setString(2, c.getInstructor());
+			ResultSet res=hasDeptIsIn.executeQuery();
+			//insert combo
+			if(!res.next()){
+				hasDeptInsert.setString(1, abrMap.get(c.getAbbriavtion()));
+				hasDeptInsert.setString(2, c.getInstructor());
+				hasDeptInsert.execute();
 			}
 		
 		} catch (SQLException e) {
