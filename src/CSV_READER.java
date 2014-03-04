@@ -114,7 +114,8 @@ public class CSV_READER extends Thread{
 						tmp.setDist(i-1, Double.parseDouble(line[i]));
 					}
 					tmp.calulateGPA();
-					myLib.addCourse(tmp);		
+					myLib.addCourse(tmp);
+					myCONN.insertIntoTabe(tmp);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -123,8 +124,6 @@ public class CSV_READER extends Thread{
 			e.printStackTrace();
 		}
 		//System.out.println(myLib.toString());
-		
-		addTodb();
 	}
 
 	public int getNumCourse() {
@@ -134,11 +133,5 @@ public class CSV_READER extends Thread{
 	
 	public String getLibStr(){
 		return fileName+"\n"+myLib.toString();
-	}
-	
-	public void addTodb(){
-		for(Course c: myLib.getCourses()){
-			myCONN.insertIntoTabe(c);
-		}
 	}
 }

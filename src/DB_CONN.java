@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -20,7 +21,8 @@ public class DB_CONN {
 	private static HashMap<String,String> abrMap=new HashMap<String,String>();
 	
 	private static PreparedStatement deptInsert;
-	private PreparedStatement factultyInsert,hasDeptInsert,courseInsert,gradeInsert;
+	private PreparedStatement facultyInsert,hasDeptInsert,courseInsert,gradeInsert;
+	private PreparedStatement facultyIsIn,hasDeptIsIn;
 	
 	
 	DB_CONN(){
@@ -59,16 +61,20 @@ public class DB_CONN {
 	
 	private void prepOtherPreparedStatements(){
 		try{
-			//TODO faculty inserts (only insert if they aren't present in db yet)
-				//the insert
-				//query for them
-			//TODO hasdept (only insert if the combo of dept and faculty is unique. ie karro is in cse and bio)
-				//the insert
-				//check if the combo is in there
-			//TODO course
-				//the insert
-			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM) VALUES(?,?,?,?,?,?)");
-				//getter for the C_ID
+			//faculty inserts (only insert if they aren't present in db yet)
+			//the insert
+			facultyInsert=conn.prepareStatement("INSERT INTO FACULTY VALUES(?);");
+			//query for them
+			facultyIsIn=conn.prepareStatement("SELECT * FROM FACULTY WHERE F_NAME = ?;");
+			//hasdept (only insert if the combo of dept and faculty is unique. ie karro is in cse and bio)
+			//the insert
+			hasDeptInsert=conn.prepareStatement("INSERT INTO HAS_DEPT VALUES(?,?);");
+			//check if the combo is in there
+			hasDeptIsIn=conn.prepareStatement("SELECT * FROM HAS_DEPT WHERE D_NAME=? AND F_NAME=?;");
+			//course
+			//the insert
+			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM) VALUES(?,?,?,?,?,?);");
+			
 			//TODO grades
 				//the insert
 		} catch (SQLException e){
@@ -144,6 +150,27 @@ public class DB_CONN {
 				courseInsert.setString(5, c.getSem());
 				courseInsert.setString(6, c.getCourseNum());
 				courseInsert.execute();
+				
+				
+				//is prof in it already
+				/*facultyIsIn.setString(1, c.getInstructor());
+				ResultSet res=facultyIsIn.executeQuery();
+				//insert prof
+				if(!res.next()){//next givs false if the result set is empty
+					facultyInsert.setString(1, c.getInstructor());
+					facultyInsert.execute();
+				}*/
+				
+				//is dept prof combo in it
+				/*hasDeptIsIn.setString(1, abrMap.get(c.getAbbriavtion()));
+				hasDeptIsIn.setString(2, c.getInstructor());
+				res=hasDeptIsIn.executeQuery();
+				//insert combo
+				if(!res.next()){
+					hasDeptInsert.setString(1, abrMap.get(c.getAbbriavtion()));
+					hasDeptInsert.setString(2, c.getInstructor());
+					hasDeptInsert.execute();
+				}*/
 			}
 		
 		} catch (SQLException e) {
