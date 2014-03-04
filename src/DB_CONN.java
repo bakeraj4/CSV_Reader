@@ -1,9 +1,13 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 
 public class DB_CONN {
@@ -13,12 +17,17 @@ public class DB_CONN {
 	
 	//private String[] tables={"FACULTY","HAS_DEPT","DEPT","COURSE","GRADE"};
 	
-	private PreparedStatement tempInsert;
+	private static HashMap<String,String> abrMap=new HashMap<String,String>();
+	
+	private static PreparedStatement deptInsert;
+	private PreparedStatement factultyInsert,hasDeptInsert,courseInsert,gradeInsert;
+	
 	
 	DB_CONN(){
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+			prepOtherPreparedStatements();
 		} catch (SQLException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,12 +38,68 @@ public class DB_CONN {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn_S = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
+			//creates the db and the tables
 			createDB();
+			//creates the prepared statements for static data
+			prepStaticPreparedStatements();
+			//adds the departments to the db
+			addAllDepts();
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
+	private static void prepStaticPreparedStatements(){
+		try {
+			deptInsert= conn_S.prepareStatement("INSERT INTO DEPT VALUES (?,?)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void prepOtherPreparedStatements(){
+		try{
+			//TODO faculty inserts (only insert if they aren't present in db yet)
+				//the insert
+				//query for them
+			//TODO hasdept (only insert if the combo of dept and faculty is unique. ie karro is in cse and bio)
+				//the insert
+				//check if the combo is in there
+			//TODO course
+				//the insert
+			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM) VALUES(?,?,?,?,?,?)");
+				//getter for the C_ID
+			//TODO grades
+				//the insert
+		} catch (SQLException e){
+			
+		}
+	}
+	
+	private static void addAllDepts(){
+		try {
+			Scanner scan=new Scanner(new File("classes.txt"));
+			String s="",abr="",dept="";
+			while(scan.hasNext()){
+				s=scan.nextLine();
+				abr=s.substring(0,3);
+				dept=s.substring(3);
+				
+				//add to the has map
+				abrMap.put(abr, dept);
+				
+				deptInsert.setString(1, dept);
+				deptInsert.setString(2, abr);
+				deptInsert.execute();
+				//add to the dept table
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static void createDB() throws SQLException {
 		// TODO Auto-generated method stub
 		Statement query=conn_S.createStatement();
@@ -46,13 +111,15 @@ public class DB_CONN {
 												  "FOREIGN KEY(F_NAME) REFERENCES FACULTY(F_NAME), " +
 												  "FOREIGN KEY(D_NAME) REFERENCES DEPT(D_NAME), " +
 												  "PRIMARY KEY(D_NAME,F_NAME))");
-		query.executeUpdate("CREATE TABLE DEPT(D_NAME VARCHAR(100) NOT NULL PRIMARY KEY," +
-												  "ABBRIVIATION VARCHAR(3))");
+		query.executeUpdate("CREATE TABLE DEPT(D_NAME VARCHAR(100) NOT NULL, " +
+												  "ABBRIVIATION VARCHAR(3), " +
+												  "PRIMARY KEY(D_NAME, ABBRIVIATION))");
 		query.executeUpdate("CREATE TABLE COURSE(C_ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, " +
 												  "C_NAME VARCHAR(100), " +
 												  "D_NAME VARCHAR(100), " +
 												  "SECTION VARCHAR(2), " +
 												  "F_NAME VARCHAR(50), " +
+												  "C_NUM VARCHAR(4), " +
 												  "SEMESTER VARCHAR(100), " +
 												  "FOREIGN KEY(D_NAME) REFERENCES DEPT(D_NAME), " +
 												  "FOREIGN KEY(F_NAME) REFERENCES FACULTY(F_NAME))");
@@ -66,14 +133,18 @@ public class DB_CONN {
 	
 	
 	public void insertIntoTabe(Course c){
-		//TODO give a lock to the conn.activitylock before insert
-		
+		//TODO give a lock to the conn.activitylock before insert		
 		try {
-			 synchronized (conn_S) {
-				 tempInsert=conn.prepareStatement("INSERT INTO TEMP(courseTitle) VALUES(?)");
-				 tempInsert.setString(1, c.getCourseTitle());
-				 tempInsert.executeUpdate();
-			 }
+			synchronized (conn_S) {
+				//adds to the course table
+				courseInsert.setString(1, c.getCourseTitle());
+				courseInsert.setString(2, abrMap.get(c.getAbbriavtion()));
+				courseInsert.setString(3, c.getSection());
+				courseInsert.setString(4, c.getInstructor());
+				courseInsert.setString(5, c.getSem());
+				courseInsert.setString(6, c.getCourseNum());
+				courseInsert.execute();
+			}
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

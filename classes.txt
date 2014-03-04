@@ -63,6 +63,7 @@ LAS Latin American Studies
 LAT Latin Language & Literature
 MBI Microbiology
 MGT Management
+MIS Management Information Systems
 MKT Marketing
 MME Manufact & Mechan Engineering  
 MTH Mathematics
