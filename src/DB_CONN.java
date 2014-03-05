@@ -31,7 +31,6 @@ public class DB_CONN {
 			conn = DriverManager.getConnection("jdbc:sqlite:" + dbFile);
 			prepOtherPreparedStatements();
 		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -116,7 +115,11 @@ public class DB_CONN {
 			courseCID.setString(4, c.getSem());
 			courseCID.setString(5, c.getCourseTitle());
 			courseCID.setString(6, abrMap.get(c.getAbbriavtion()));
-			return courseCID.executeQuery().getInt("C_ID");
+			//return courseCID.executeQuery().getInt("C_ID");
+			ResultSet res=courseCID.executeQuery();
+			int ret=res.getInt("C_ID");
+			res.close();
+			return ret;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -166,13 +169,14 @@ public class DB_CONN {
 			
 			
 			//is prof in it already
-			/*facultyIsIn.setString(1, c.getInstructor());
+			facultyIsIn.setString(1, c.getInstructor());
 			ResultSet rs=facultyIsIn.executeQuery();
 			//insert prof
 			if(!rs.next()){//next givs false if the result set is empty
 				facultyInsert.setString(1, c.getInstructor());
 				facultyInsert.execute();
-			}*/
+			}
+			rs.close();
 			
 			//is dept prof combo in it
 			hasDeptIsIn.setString(1, abrMap.get(c.getAbbriavtion()));
@@ -184,11 +188,12 @@ public class DB_CONN {
 				hasDeptInsert.setString(2, c.getInstructor());
 				hasDeptInsert.execute();
 			}
+			res.close();
 			
 			//insert the grades
 			int C_ID=getCID(c);
-			System.out.println(C_ID);
-			System.out.println(c.toString());
+			//System.out.println(C_ID);
+			//System.out.println(c.toString());
 			String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
 			for(int i=0;i<c.getGradeOccurance().length;i++){
 				//the grade will be grades[i]
@@ -199,10 +204,11 @@ public class DB_CONN {
 				gradeInsert.setDouble(3, c.getGradeDist()[i]);
 				//the number of occurances c.getGradeOccurance()[i];
 				gradeInsert.setInt(4, c.getGradeOccurance()[i]);
-				gradeInsert.execute();
+//				gradeInsert.execute();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(c.toString());
 			System.exit(0);//just to kill the process
 		}
 	}
