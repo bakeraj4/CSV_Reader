@@ -115,9 +115,11 @@ public class DB_CONN {
 			courseCID.setString(4, c.getSem());
 			courseCID.setString(5, c.getCourseTitle());
 			courseCID.setString(6, abrMap.get(c.getAbbriavtion()));
-			//return courseCID.executeQuery().getInt("C_ID");
 			ResultSet res=courseCID.executeQuery();
-			int ret=res.getInt("C_ID");
+			int ret=-1;
+			if(res.next()){
+				ret=res.getInt("C_ID");
+			}
 			res.close();
 			return ret;
 		} catch (SQLException e) {
@@ -194,17 +196,19 @@ public class DB_CONN {
 			int C_ID=getCID(c);
 			//System.out.println(C_ID);
 			//System.out.println(c.toString());
-			String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
-			for(int i=0;i<c.getGradeOccurance().length;i++){
-				//the grade will be grades[i]
-				gradeInsert.setString(1, grades[i]);
-				//the CID is the C_ID from above
-				gradeInsert.setInt(2, C_ID);
-				//the percent of c.getGradeDist()[i];
-				gradeInsert.setDouble(3, c.getGradeDist()[i]);
-				//the number of occurances c.getGradeOccurance()[i];
-				gradeInsert.setInt(4, c.getGradeOccurance()[i]);
-//				gradeInsert.execute();
+			if(C_ID!=-1){
+				String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
+				for(int i=0;i<c.getGradeOccurance().length;i++){
+					//the grade will be grades[i]
+					gradeInsert.setString(1, grades[i]);
+					//the CID is the C_ID from above
+					gradeInsert.setInt(2, C_ID);
+					//the percent of c.getGradeDist()[i];
+					gradeInsert.setDouble(3, c.getGradeDist()[i]);
+					//the number of occurances c.getGradeOccurance()[i];
+					gradeInsert.setInt(4, c.getGradeOccurance()[i]);
+					gradeInsert.execute();
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
