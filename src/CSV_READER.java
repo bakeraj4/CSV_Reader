@@ -85,16 +85,27 @@ public class CSV_READER extends Thread{
 							i++;
 							profName+=", "+theLine[i];
 							i++;
+							System.out.println(profName);
+							System.out.println(theLine[i]);
+							if(theLine[i].contains(".")){
+								profName+=" "+theLine[i];
+								i++;
+							}
 							dataIndex++;
 							tmp.setInstructor(profName);
 						}
 						else if(dataIndex==4){
+							i--;
 							courseName+=theLine[i];
 							i++;
-							if(i>theLine.length){
-								if(!theLine[i].equals("N")){
+							for(;i<theLine.length;i++){
+								if(!theLine[i].contains(",")){
 									courseName+=" "+theLine[i];
-									i++;
+								}
+								else{
+									int loc=theLine[i].indexOf(',');
+									courseName+=" "+theLine[i].substring(0, loc);
+									i+=theLine.length;
 								}
 							}
 							dataIndex++;
@@ -116,9 +127,10 @@ public class CSV_READER extends Thread{
 					}
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
-					synchronized(lock){
-						myCONN.insertIntoTabe(tmp);
-					}
+					//synchronized(lock){
+						//myCONN.insertIntoTabe(tmp);
+						System.out.println(tmp.getCourseTitle()+"\t"+tmp.getInstructor());
+					//}
 				}
 			}
 		} catch (FileNotFoundException e) {
