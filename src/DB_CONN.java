@@ -22,7 +22,7 @@ public class DB_CONN {
 	
 	private static PreparedStatement deptInsert;
 	private PreparedStatement facultyInsert,hasDeptInsert,courseInsert,gradeInsert;
-	private PreparedStatement facultyIsIn,hasDeptIsIn;
+	private PreparedStatement facultyIsIn,hasDeptIsIn,courseCID;
 	
 	
 	DB_CONN(){
@@ -74,9 +74,11 @@ public class DB_CONN {
 			//course
 			//the insert
 			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM) VALUES(?,?,?,?,?,?);");
-			
-			//TODO grades
-				//the insert
+			//get the c_ID
+			courseCID=conn.prepareStatement("SELECT C_ID FROM COURSE WHERE SECTION =? AND F_NAME=? AND C_NUM=? AND SEMESTER =? AND C_NAME=? AND D_NAME =?;");
+			//grades
+			//the insert
+			gradeInsert=conn.prepareStatement("INSERT INTO GRADE VALUES(?,?,?,?);");
 		} catch (SQLException e){
 			
 		}
@@ -106,11 +108,24 @@ public class DB_CONN {
 		}
 	}
 	
+	private int getCID(Course c){
+		try {
+			courseCID.setString(1, c.getSection());
+			courseCID.setString(2, c.getInstructor());
+			courseCID.setString(3, c.getCourseNum());
+			courseCID.setString(4, c.getSem());
+			courseCID.setString(5, c.getCourseTitle());
+			courseCID.setString(6, abrMap.get(c.getAbbriavtion()));
+			return courseCID.executeQuery().getInt("C_ID");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
 	private static void createDB() throws SQLException {
-		// TODO Auto-generated method stub
 		Statement query=conn_S.createStatement();
-		//Use this to create the tables
-		
+		//Use this to create the tables		
 		query.executeUpdate("CREATE TABLE FACULTY(F_NAME VARCHAR(50) NOT NULL PRIMARY KEY)");
 		query.executeUpdate("CREATE TABLE HAS_DEPT(D_NAME VARCHAR(100), " +
 												  "F_NAME VARCHAR(50), " +
@@ -139,7 +154,6 @@ public class DB_CONN {
 	
 	
 	public void insertIntoTabe(Course c){
-		//TODO give a lock to the conn.activitylock before insert		
 		try {
 			//adds to the course table
 			courseInsert.setString(1, c.getCourseTitle());
@@ -153,9 +167,9 @@ public class DB_CONN {
 			
 			//is prof in it already
 			/*facultyIsIn.setString(1, c.getInstructor());
-			ResultSet res=facultyIsIn.executeQuery();
+			ResultSet rs=facultyIsIn.executeQuery();
 			//insert prof
-			if(!res.next()){//next givs false if the result set is empty
+			if(!rs.next()){//next givs false if the result set is empty
 				facultyInsert.setString(1, c.getInstructor());
 				facultyInsert.execute();
 			}*/
@@ -170,10 +184,26 @@ public class DB_CONN {
 				hasDeptInsert.setString(2, c.getInstructor());
 				hasDeptInsert.execute();
 			}
-		
+			
+			//insert the grades
+			int C_ID=getCID(c);
+			System.out.println(C_ID);
+			System.out.println(c.toString());
+			String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
+			for(int i=0;i<c.getGradeOccurance().length;i++){
+				//the grade will be grades[i]
+				gradeInsert.setString(1, grades[i]);
+				//the CID is the C_ID from above
+				gradeInsert.setInt(2, C_ID);
+				//the percent of c.getGradeDist()[i];
+				gradeInsert.setDouble(3, c.getGradeDist()[i]);
+				//the number of occurances c.getGradeOccurance()[i];
+				gradeInsert.setInt(4, c.getGradeOccurance()[i]);
+				gradeInsert.execute();
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(0);//just to kill the process
 		}
 	}
 }
