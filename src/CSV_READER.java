@@ -81,12 +81,13 @@ public class CSV_READER extends Thread{
 							dataIndex++;
 						}
 						else if(dataIndex==3){
+							if(theLine[i].length()<2){//there are courses like line # 24167 in the fall 2104 doc that had a floating A an im ignoring it
+								i++;
+							}
 							profName+=theLine[i];
 							i++;
 							profName+=", "+theLine[i];
 							i++;
-							System.out.println(profName);
-							System.out.println(theLine[i]);
 							if(theLine[i].contains(".")){
 								profName+=" "+theLine[i];
 								i++;
@@ -127,10 +128,9 @@ public class CSV_READER extends Thread{
 					}
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
-					//synchronized(lock){
+					synchronized(lock){
 						//myCONN.insertIntoTabe(tmp);
-						System.out.println(tmp.getCourseTitle()+"\t"+tmp.getInstructor());
-					//}
+					}
 				}
 			}
 		} catch (FileNotFoundException e) {

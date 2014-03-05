@@ -42,7 +42,7 @@ public class Main {
 			//has a txt version for now
 			//create the db file here and the tables to be used.
 			BufferedWriter out=new BufferedWriter(new FileWriter("Results.txt"));
-			for(int i=0;i</*names.length*/1;i++){
+			for(int i=0;i<names.length;i++){
 				System.out.println(files[i].getNumCourse());
 				files[i].join();
 				out.write(files[i].getLibStr());
