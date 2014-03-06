@@ -15,7 +15,7 @@ public class CSV_READER extends Thread{
 	private String[] regexs={"First Semester","Fall Semester","Second Semester","Spring Semester","Summer Session", "Summer Term"};
 	private DB_CONN myCONN;
 	private final static Object lock =new Object();
-	
+	private static int courseNum=0;
 	
 	CSV_READER(String fName){
 		fileName=fName;	
@@ -129,7 +129,8 @@ public class CSV_READER extends Thread{
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
 					synchronized(lock){
-						myCONN.insertIntoTabe(tmp);
+						myCONN.insertIntoTable(tmp,courseNum);
+						courseNum++;
 					}
 				}
 			}

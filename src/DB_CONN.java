@@ -72,7 +72,7 @@ public class DB_CONN {
 			hasDeptIsIn=conn.prepareStatement("SELECT * FROM HAS_DEPT WHERE D_NAME=? AND F_NAME=?;");
 			//course
 			//the insert
-			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM) VALUES(?,?,?,?,?,?);");
+			courseInsert= conn.prepareStatement("INSERT INTO COURSE(C_NAME,D_NAME,SECTION, F_NAME, SEMESTER, C_NUM, C_ID) VALUES(?,?,?,?,?,?,?);");
 			//get the c_ID
 			courseCID=conn.prepareStatement("SELECT C_ID FROM COURSE WHERE SECTION =? AND F_NAME=? AND C_NUM=? AND SEMESTER =? AND C_NAME=? AND D_NAME =?;");
 			//grades
@@ -140,7 +140,7 @@ public class DB_CONN {
 		query.executeUpdate("CREATE TABLE DEPT(D_NAME VARCHAR(100) NOT NULL, " +
 												  "ABBRIVIATION VARCHAR(3), " +
 												  "PRIMARY KEY(D_NAME, ABBRIVIATION))");
-		query.executeUpdate("CREATE TABLE COURSE(C_ID INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+		query.executeUpdate("CREATE TABLE COURSE(C_ID INTEGER  NOT NULL PRIMARY KEY, " +
 												  "C_NAME VARCHAR(100), " +
 												  "D_NAME VARCHAR(100), " +
 												  "SECTION VARCHAR(2), " +
@@ -158,7 +158,7 @@ public class DB_CONN {
 	}
 	
 	
-	public void insertIntoTabe(Course c){
+	public void insertIntoTable(Course c,int cnum){
 		try {
 			//adds to the course table
 			courseInsert.setString(1, c.getCourseTitle());
@@ -167,6 +167,7 @@ public class DB_CONN {
 			courseInsert.setString(4, c.getInstructor());
 			courseInsert.setString(5, c.getSem());
 			courseInsert.setString(6, c.getCourseNum());
+			courseInsert.setInt(7, cnum);
 			courseInsert.execute();
 			
 			
@@ -193,17 +194,18 @@ public class DB_CONN {
 			res.close();
 			
 			//insert the grades
-			int C_ID=getCID(c);
+			//int C_ID=getCID(c);
 			//System.out.println(C_ID);
 			//System.out.println(c.toString());
-			if(C_ID!=-1){
+			//if(C_ID!=-1){
 				try{
+					System.out.println(cnum);
 					String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
 					for(int i=0;i<c.getGradeOccurance().length;i++){
 						//the grade will be grades[i]
 						gradeInsert.setString(1, grades[i]);
 						//the CID is the C_ID from above
-						gradeInsert.setInt(2, C_ID);
+						gradeInsert.setInt(2, cnum);
 						//the percent of c.getGradeDist()[i];
 						gradeInsert.setDouble(3, c.getGradeDist()[i]);
 						//the number of occurances c.getGradeOccurance()[i];
@@ -213,7 +215,7 @@ public class DB_CONN {
 				}catch(SQLException e){
 					System.out.println("There was a duplicate.");
 				}
-			}
+			//}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(c.toString());
