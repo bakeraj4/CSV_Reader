@@ -92,12 +92,24 @@ public class CSV_READER extends Thread{
 								profName+=" "+theLine[i];
 								i++;
 							}
-							dataIndex++;
 							
+							dataIndex++;
 							i--;
 							tmp.setInstructor(profName);
 						}
 						else if(dataIndex==4){
+							if(theLine[i].equals("Carlos")){
+								i+=2;
+								tmp.setInstructor(tmp.getInstructor()+" Carlos L.");
+							}
+							else if(theLine[i].equals("Ann")){
+								i+=2;
+								tmp.setInstructor(tmp.getInstructor()+" Ann M.");
+							}
+							else if(theLine[i].equals("Ana")){
+								i+=2;
+								tmp.setInstructor(tmp.getInstructor()+" Ana Maria");
+							}
 							courseName+=theLine[i];
 							i++;
 							for(;i<theLine.length;i++){
