@@ -88,19 +88,12 @@ public class CSV_READER extends Thread{
 							i++;
 							profName+=", "+theLine[i];
 							i++;
-							if(theLine[i].contains(".")){
+							if(theLine[i].contains(".")&&!theLine[i].toLowerCase().contains("u.s.")){
 								profName+=" "+theLine[i];
 								i++;
 							}
 							dataIndex++;
-							int j=i;
-							boolean hasDot=false;
-							for(;j<theLine.length&&!hasDot;j++){
-								if(theLine[i].length()==3&&theLine[i].contains(".")){
-									hasDot=true;
-									i=j+1;
-								}
-							}
+							
 							i--;
 							tmp.setInstructor(profName);
 						}
@@ -136,7 +129,7 @@ public class CSV_READER extends Thread{
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
 					synchronized(lock){
-		//				myCONN.insertIntoTable(tmp,courseNum);
+					//	myCONN.insertIntoTable(tmp,courseNum);
 						courseNum++;
 					}
 				}
