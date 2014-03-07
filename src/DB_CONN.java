@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -107,6 +106,7 @@ public class DB_CONN {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private int getCID(Course c){
 		try {
 			courseCID.setString(1, c.getSection());
