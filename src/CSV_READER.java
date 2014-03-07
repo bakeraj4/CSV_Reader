@@ -93,22 +93,29 @@ public class CSV_READER extends Thread{
 								i++;
 							}
 							dataIndex++;
+							int j=i;
+							boolean hasDot=false;
+							for(;j<theLine.length&&!hasDot;j++){
+								if(theLine[i].length()==3&&theLine[i].contains(".")){
+									hasDot=true;
+									i=j+1;
+								}
+							}
+							i--;
 							tmp.setInstructor(profName);
 						}
 						else if(dataIndex==4){
-							i--;
 							courseName+=theLine[i];
 							i++;
 							for(;i<theLine.length;i++){
-								if(!theLine[i].contains(",")){
 									courseName+=" "+theLine[i];
-								}
-								else{
-									int loc=theLine[i].indexOf(',');
-									courseName+=" "+theLine[i].substring(0, loc);
-									i+=theLine.length;
-								}
 							}
+							
+							int loc=courseName.indexOf(',');
+							if(loc!=-1){
+								courseName=courseName.substring(0, loc);
+							}
+							
 							dataIndex++;
 							tmp.setCourseTitle(courseName);
 						}
