@@ -1,9 +1,4 @@
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class CourseLib {
 	private ArrayList<Course> courses=new ArrayList<Course>(); 	
