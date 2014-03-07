@@ -194,28 +194,24 @@ public class DB_CONN {
 			res.close();
 			
 			//insert the grades
-			//int C_ID=getCID(c);
-			//System.out.println(C_ID);
-			//System.out.println(c.toString());
-			//if(C_ID!=-1){
-				try{
-					System.out.println(cnum);
-					String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
-					for(int i=0;i<c.getGradeOccurance().length;i++){
-						//the grade will be grades[i]
-						gradeInsert.setString(1, grades[i]);
-						//the CID is the C_ID from above
-						gradeInsert.setInt(2, cnum);
-						//the percent of c.getGradeDist()[i];
-						gradeInsert.setDouble(3, c.getGradeDist()[i]);
-						//the number of occurances c.getGradeOccurance()[i];
-						gradeInsert.setInt(4, c.getGradeOccurance()[i]);
-						gradeInsert.execute();
-					}
-				}catch(SQLException e){
-					System.out.println("There was a duplicate.");
+			
+			try{
+				System.out.println(cnum);
+				String[] grades={"A+","A","A-","B+","B","B-","C+","C","C-","D+","D","D-","F","W","WP","WF","I","X","Y","P","S"};
+				for(int i=0;i<c.getGradeOccurance().length;i++){
+					//the grade will be grades[i]
+					gradeInsert.setString(1, grades[i]);
+					//the CID is the C_ID from above
+					gradeInsert.setInt(2, cnum);
+					//the percent of c.getGradeDist()[i];
+					gradeInsert.setDouble(3, c.getGradeDist()[i]);
+					//the number of occurances c.getGradeOccurance()[i];
+					gradeInsert.setInt(4, c.getGradeOccurance()[i]);
+					gradeInsert.execute();
 				}
-			//}
+			}catch(SQLException e){
+				System.out.println("There was a duplicate.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(c.toString());

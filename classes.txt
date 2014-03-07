@@ -11,9 +11,12 @@ ATH Anthropology
 BIO Biology
 BIS Integrative Studies
 BLS Business Legal Studies
+BOT Botany
 BTE Business Technology
 BUS Business Analysis
 BWS Black World Studies
+CAS College Of Arts And Science
+CFA Combined Fine Arts
 CHI Chinese
 CHM Chemistry & Biochemistry
 CIT Comp Information Technology
@@ -24,6 +27,7 @@ COM Communication
 CPE Chemical & Paper Engineering
 CSE Comp Sci &Software Engineering
 CSA Comp Sci &Software Engineering
+DSC Decision Sciences 
 DST Disability Studies
 EAS Engineering & App Science
 ECE Electrical & Computer Engineer
@@ -35,6 +39,7 @@ EGM Engineering Management
 EHS Education, Health And Society
 ENG English
 ENT Engineering Technology
+ENV Environmental Science
 ESP Entrepreneurship
 FIN Finance
 FRE French
@@ -44,9 +49,11 @@ GEO Geography
 GER German
 GHS Global Health Studies
 GLG Geology
+GRK Greek
 GSC Graduate School Community
 GTY Gerontology
 HBW Hebrew
+HIN Hindi
 HON Honors
 HST History
 IDS Interdisciplinary
@@ -61,6 +68,7 @@ KNH Kinesiology And Health
 KOR Korean
 LAS Latin American Studies
 LAT Latin Language & Literature
+LUX Luxembourg
 MBI Microbiology
 MGT Management
 MIS Management Information Systems
@@ -70,7 +78,9 @@ MTH Mathematics
 MUS Music
 NSC Naval Science
 NSG Nursing
+PCE Paper & Chemical Engineering
 PHL Philosophy
+PHS Phy Edu, Hlth, & Sport Studies
 PHY Physics
 PLW Pre-Law Studies
 PMD Premedical Studies
@@ -86,5 +96,8 @@ SPA Speech Pathology & Audiology
 SPN Spanish
 STA Statistics
 THE Theatre
+WCP Interdisciplinary Studies
 WGS Women,Gender&Sexuality Studies
+WMS Women's Studies
 WST Western Program
+ZOO Zoology

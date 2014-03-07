@@ -129,7 +129,7 @@ public class CSV_READER extends Thread{
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
 					synchronized(lock){
-						myCONN.insertIntoTable(tmp,courseNum);
+		//				myCONN.insertIntoTable(tmp,courseNum);
 						courseNum++;
 					}
 				}
