@@ -87,7 +87,7 @@ PMD Premedical Studies
 POL Political Science
 POR Portuguese
 PSY Psychology
-REL Religion, Comparative
+REL Comparative Religion
 RUS Russian
 SCA School Of Creative Arts
 SJS Social Justice Studies
