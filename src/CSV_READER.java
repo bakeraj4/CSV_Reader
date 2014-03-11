@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,6 +101,7 @@ public class CSV_READER extends Thread{
 							tmp.setInstructor(profName);
 						}
 						else if(dataIndex==4){
+							int n=inDoubleArr(theLine[i]);
 							if(theLine[i].equals("Carlos")){
 								i+=2;
 								tmp.setInstructor(tmp.getInstructor()+" Carlos L.");
@@ -110,6 +114,30 @@ public class CSV_READER extends Thread{
 								i+=2;
 								tmp.setInstructor(tmp.getInstructor()+" Ana Maria");
 							}
+							else if(theLine[i].equals("Natalie")){
+								i+=2;
+								tmp.setInstructor(tmp.getInstructor()+" Natalie D.");
+							}
+							else if(theLine[i].equals("John")||theLine[i].equals("Mark")||theLine[i].equals("Elizabeth")){
+								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								i++;
+								if(theLine[i].equals("E.")||theLine[i].equals("J.")){//they both could have a E. middle initail
+									tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+									i++;
+								}
+							}
+							else if(n!=-1){
+								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								i++;
+								for(int j=i+n;i<j;i++){
+									tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								}
+							}
+							else if(inSingleArr(theLine[i])){
+								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								i++;
+							}
+							
 							courseName+=theLine[i];
 							i++;
 							for(;i<theLine.length;i++){
@@ -152,6 +180,54 @@ public class CSV_READER extends Thread{
 			e.printStackTrace();
 		}
 		//System.out.println(myLib.toString());
+	}
+
+	
+	private final Map<String,Integer> doubleNames=Collections.unmodifiableMap(new HashMap<String,Integer>(){{
+		put("Wietse",1);
+		put("Gomes",2);
+		put("Chung",1);
+		put("Buffy",1);
+		put("Natalie",1);
+		put("Garaza",2);
+		put("Maria",1);
+		put("Henry",1);
+		put("Alana",1);
+		put("Allison",1);
+		put("Joyce",1);
+		put("Kathryn",1);
+		put("Jacqueline",1);
+		put("Amy",1);
+		put("Garza",2);
+		put("Nikolai",1);
+		put("Phillip",1);
+		put("Merwe",2);
+		put("Ellen",1);
+		put("Puligadda",1);
+		put("Nathan",1);
+		put("Laura",1);
+		put("Daniel",1);
+	}});//how many additional tokens. so Aaron,1 means Aaron B. 
+	
+	private int inDoubleArr(String string){
+		if(doubleNames.containsKey(string)){
+			return doubleNames.get(string);
+		}
+		return -1;
+	}
+	
+	private final String [] singleNames={"Asoka","Kerry","Jean","Spahr","Micheal","Barbara",
+	"R.","Azizeh","Michele","Raisa","Eva","Steven","Katia","Sandra","Whitney","Lauren","Kathlenn",
+	"Katie","Lee","Barbra","Feng","Sophie","Renee","Jane","Rachel","Brad","Guy","Michael",
+	"William","William","Douglas","Hays","Sherman","Judith","Sandra","Sik","Rudy","Karen",
+	"Christopher","Allen","Aurora","Peter","James","Allyn","John","Mark","Kathleen"};
+	private boolean inSingleArr(String string) {
+		for(String s: singleNames){
+			if(s.equals(string)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int getNumCourse() {
