@@ -119,22 +119,22 @@ public class CSV_READER extends Thread{
 								tmp.setInstructor(tmp.getInstructor()+" Natalie D.");
 							}
 							else if(theLine[i].equals("John")||theLine[i].equals("Mark")||theLine[i].equals("Elizabeth")){
-								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 								i++;
 								if(theLine[i].equals("E.")||theLine[i].equals("J.")){//they both could have a E. middle initail
-									tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+									tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 									i++;
 								}
 							}
 							else if(n!=-1){
-								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 								i++;
 								for(int j=i+n;i<j;i++){
-									tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+									tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 								}
 							}
 							else if(inSingleArr(theLine[i])){
-								tmp.setInstructor(tmp.getInstructor()+theLine[i]);
+								tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 								i++;
 							}
 							
