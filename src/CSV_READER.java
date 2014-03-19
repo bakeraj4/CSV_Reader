@@ -137,10 +137,6 @@ public class CSV_READER extends Thread{
 									tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
 								}
 							}
-							else if(inSingleArr(theLine[i])){
-								tmp.setInstructor(tmp.getInstructor()+" "+theLine[i]);
-								i++;
-							}
 							
 							courseName+=theLine[i];
 							i++;
@@ -173,7 +169,7 @@ public class CSV_READER extends Thread{
 					tmp.calulateGPA();
 					myLib.addCourse(tmp);
 					synchronized(lock){
-						myCONN.insertIntoTable(tmp,courseNum);
+				//		myCONN.insertIntoTable(tmp,courseNum);
 						courseNum++;
 					}
 				}
@@ -213,6 +209,60 @@ public class CSV_READER extends Thread{
 		put("Daniel",1);
 		put("Teso",1);
 		put("Benedicte",1);
+		put("Asoka",0);
+		put("Kerry",0);
+		put("Jean",0);
+		put("Spahr",0);
+		put("Micheal",0);
+		put("Barbara",0);
+		put("R.",0);
+		put("Azizeh",0);
+		put("Michele",0);
+		put("Raisa",0);
+		put("Eva",0);
+		put("Steven",0);
+		put("Katia",0);
+		put("Sandra",0);
+		put("Whitney",0);
+		put("Lauren",0);
+		put("Kathlenn",0);		
+		put("Katie",0);
+		put("Lee",0);
+		put("Barbra",0);
+		put("Feng",0);
+		put("Sophie",0);
+		put("Renee",0);
+		put("Jane",0);
+		put("Rachel",0);
+		put("Brad",0);
+		put("Guy",0);
+		put("Michael",0);
+		put("William",0);
+		put("William",0);
+		put("Douglas",0);
+		put("Hays",0);
+		put("Sherman",0);
+		put("Judith",0);
+		put("Sandra",0);
+		put("Sik",0);
+		put("Rudy",0);
+		put("Karen",0);
+		put("Christopher",0);
+		put("Allen",0);
+		put("Aurora",0);
+		put("Peter",0);
+		put("James",0);
+		put("Allyn",0);
+		put("John",0);
+		put("Mark",0);
+		put("Kathleen",0);
+		put("Qing",0);
+		put("Sidury",0);
+		put("David",0);
+		put("Fay",0);
+		put("Bob",0);
+		put("Elijah",0);
+		put("Maria-Carmen",0);
 	}});//how many additional tokens. so Aaron,1 means Aaron B. 
 	
 	private int inDoubleArr(String string){
@@ -220,21 +270,6 @@ public class CSV_READER extends Thread{
 			return doubleNames.get(string);
 		}
 		return -1;
-	}
-	
-	private final String [] singleNames={"Asoka","Kerry","Jean","Spahr","Micheal","Barbara",
-	"R.","Azizeh","Michele","Raisa","Eva","Steven","Katia","Sandra","Whitney","Lauren","Kathlenn",
-	"Katie","Lee","Barbra","Feng","Sophie","Renee","Jane","Rachel","Brad","Guy","Michael",
-	"William","William","Douglas","Hays","Sherman","Judith","Sandra","Sik","Rudy","Karen",
-	"Christopher","Allen","Aurora","Peter","James","Allyn","John","Mark","Kathleen","Qing","Sidury",
-	"David","Fay","Bob","Elijah","Maria-Carmen"};
-	private boolean inSingleArr(String string) {
-		for(String s: singleNames){
-			if(s.equals(string)){
-				return true;
-			}
-		}
-		return false;
 	}
 
 	public int getNumCourse() {
