@@ -89,9 +89,13 @@ public class CSV_READER extends Thread{
 							}
 							profName+=theLine[i];
 							i++;
+							if(profName.toLowerCase().equals("de")){
+								profName+=" "+theLine[i];
+								i++;
+							}
 							profName+=", "+theLine[i];
 							i++;
-							if(theLine[i].contains(".")&&!theLine[i].toLowerCase().contains("u.s.")){
+							if(theLine[i].contains(".")&&theLine[i].length()==2){
 								profName+=" "+theLine[i];
 								i++;
 							}
@@ -207,6 +211,8 @@ public class CSV_READER extends Thread{
 		put("Nathan",1);
 		put("Laura",1);
 		put("Daniel",1);
+		put("Teso",1);
+		put("Benedicte",1);
 	}});//how many additional tokens. so Aaron,1 means Aaron B. 
 	
 	private int inDoubleArr(String string){
@@ -220,7 +226,8 @@ public class CSV_READER extends Thread{
 	"R.","Azizeh","Michele","Raisa","Eva","Steven","Katia","Sandra","Whitney","Lauren","Kathlenn",
 	"Katie","Lee","Barbra","Feng","Sophie","Renee","Jane","Rachel","Brad","Guy","Michael",
 	"William","William","Douglas","Hays","Sherman","Judith","Sandra","Sik","Rudy","Karen",
-	"Christopher","Allen","Aurora","Peter","James","Allyn","John","Mark","Kathleen"};
+	"Christopher","Allen","Aurora","Peter","James","Allyn","John","Mark","Kathleen","Qing","Sidury",
+	"David","Fay","Bob","Elijah","Maria-Carmen"};
 	private boolean inSingleArr(String string) {
 		for(String s: singleNames){
 			if(s.equals(string)){
