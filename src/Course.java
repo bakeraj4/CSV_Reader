@@ -12,7 +12,7 @@ public class Course {
 		//return abbriavtion+""+courseNum+" "+section+" "+" is tought by "+instructor+" and had a "+gpa+" gpa, during the "+sem+".";
 		String tmp= this.abbriavtion+","+this.courseNum+","+this.section+","+this.instructor+","+this.sem+","+((Double.isNaN(this.gpa))?0.0:this.gpa)+","+this.courseTitle;
 		for(int i=0;i<13;i++){
-			tmp+=(","+this.gradeOccurance[i]+","+this.gradeDist[i]);
+			tmp+=(","+this.gradeOccurance[i]);//+","+this.gradeDist[i]);
 		}
 		return tmp;
 	}
