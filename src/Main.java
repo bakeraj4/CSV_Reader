@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class Main {
@@ -31,7 +32,7 @@ public class Main {
 		//200810 to 201410
 		
 		try {
-			DB_CONN.init();
+			//DB_CONN.init();
 			
 			
 			CSV_READER[] files=new CSV_READER[names.length];
@@ -42,10 +43,13 @@ public class Main {
 			//has a txt version for now
 			//create the db file here and the tables to be used.
 			BufferedWriter out=new BufferedWriter(new FileWriter("Results.txt"));
+			PrintWriter pw =new PrintWriter(new FileWriter("Results.csv"));
+			
 			for(int i=0;i<names.length;i++){
 				System.out.println(files[i].getNumCourse());
 				files[i].join();
 				out.write(files[i].getLibStr());
+				pw.write(files[i].getLibStr());
 			}
 			out.close();
 		} catch (InterruptedException e) {

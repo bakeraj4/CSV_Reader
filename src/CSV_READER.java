@@ -278,6 +278,6 @@ public class CSV_READER extends Thread{
 	}
 	
 	public String getLibStr(){
-		return fileName+"\n"+myLib.toString();
+		return /*fileName+"\n"+*/myLib.toString();
 	}
 }
